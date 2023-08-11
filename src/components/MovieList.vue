@@ -4,6 +4,7 @@
       v-for="movie in movies"
       :key="movie.id"
       :movie="movie"
+      :selectedGenre="selectedGenre"
     ></MovieDetails>
   </div>
 </template>
@@ -21,6 +22,7 @@ export default {
       type: Array,
       required: true,
     },
+    selectedGenre: String,
   },
 };
 </script>

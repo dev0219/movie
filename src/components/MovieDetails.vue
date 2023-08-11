@@ -1,12 +1,13 @@
 <template>
-  <div class="movie-details" v-if="movie.genre === selectedGenre"></div>
   <div class="movie-details">
-    <img :src="movie.image" alt="Movie Poster" />
-    <h2>{{ movie.title }}</h2>
-    <p>Genre: {{ movie.genre }}</p>
-    <p>Release Date: {{ movie.releaseDate }}</p>
-    <p>IMDB Rating: {{ movie.imdbRating }}</p>
-    <ViewDescription :movie="movie"></ViewDescription>
+    <div>
+      <img :src="movie.image" alt="Movie Poster" />
+      <h2>{{ movie.title }}</h2>
+      <p>Genre: {{ movie.genre }}</p>
+      <p>Release Date: {{ movie.releaseDate }}</p>
+      <p>IMDB Rating: {{ movie.imdbRating }}</p>
+      <ViewDescription :movie="movie"></ViewDescription>
+    </div>
   </div>
 </template>
 
@@ -23,6 +24,7 @@ export default {
       type: Object,
       required: true,
     },
+    selectedGenre: String,
   },
 };
 </script>
