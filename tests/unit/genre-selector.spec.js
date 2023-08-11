@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import GenreSelector from '@/components/GenreSelector.vue';
 
 describe('GenreSelector.vue', () => {
-  it('displays genres and triggers selectGenre on click', async () => {
+  it('displays genres', () => {
     const genres = ['Action', 'Romance', 'Comedy', 'Drama'];
-    const selectedGenre = 'action';
+    const selectedGenre = 'Action';
     const selectGenre = jest.fn();
 
     const wrapper = shallowMount(GenreSelector, {
@@ -19,10 +19,30 @@ describe('GenreSelector.vue', () => {
     const genreItems = wrapper.findAll('li');
     expect(genreItems.length).toBe(genres.length);
 
-    // Simulate clicking on a genre
-    await genreItems.at(1).trigger('click');
+    // Verify the displayed genre texts
+    genreItems.forEach((genreItem, index) => {
+      expect(genreItem.text()).toBe(genres[index]);
+    });
+  });
 
-    // Check if selectGenre function was called with the correct genre
-    expect(selectGenre).toHaveBeenCalledWith('Romance');
+  it('triggers selectGenre on click', async () => {
+    const genres = ['Action', 'Romance', 'Comedy', 'Drama'];
+    const selectedGenre = 'Action';
+    const selectGenre = jest.fn();
+
+    const wrapper = shallowMount(GenreSelector, {
+      props: {
+        genres,
+        selectedGenre,
+        selectGenre,
+      },
+    });
+
+    // Simulate clicking on each genre
+    const genreItems = wrapper.findAll('li');
+    for (let index = 0; index < genres.length; index++) {
+      await genreItems.at(index).trigger('click');
+      expect(selectGenre).toHaveBeenCalledWith(genres[index]);
+    }
   });
 });
